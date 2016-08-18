@@ -1,0 +1,24 @@
+diff --git a/nci/jni/Android.mk b/nci/jni/Android.mk
+old mode 100644
+new mode 100755
+index 2a7d34a..968b7e5
+--- a/nci/jni/Android.mk
++++ b/nci/jni/Android.mk
+@@ -50,7 +50,7 @@ LOCAL_CFLAGS += -DJCOP_VER_3_1=$(JCOP_VER_3_1)
+ LOCAL_CFLAGS += -DJCOP_VER_3_2=$(JCOP_VER_3_2)
+ LOCAL_CFLAGS += -DJCOP_VER_3_3=$(JCOP_VER_3_3)
+ 
+-NFC_NXP_ESE:= TRUE
++NFC_NXP_ESE:= FALSE
+ ifeq ($(NFC_NXP_ESE),TRUE)
+ LOCAL_CFLAGS += -DNFC_NXP_ESE=TRUE
+ LOCAL_CFLAGS += -DNFC_NXP_ESE_VER=$(JCOP_VER_3_3)
+@@ -59,7 +59,7 @@ LOCAL_CFLAGS += -DNFC_NXP_ESE=FALSE
+ endif
+ 
+ #### Select the CHIP ####
+-NXP_CHIP_TYPE := $(PN551)
++NXP_CHIP_TYPE := $(PN547C2)
+ 
+ ifeq ($(NXP_CHIP_TYPE),$(PN547C2))
+ LOCAL_CFLAGS += -DNFC_NXP_CHIP_TYPE=PN547C2

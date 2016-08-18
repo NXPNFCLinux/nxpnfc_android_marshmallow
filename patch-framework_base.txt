@@ -1,8 +1,8 @@
 diff --git a/Android.mk b/Android.mk
-index 0ba92cf..76ac784 100644
+index d088dc0..33f8963 100644
 --- a/Android.mk
 +++ b/Android.mk
-@@ -186,10 +186,20 @@ LOCAL_SRC_FILES += \
+@@ -198,10 +198,21 @@ LOCAL_SRC_FILES += \
  	core/java/android/net/INetworkStatsSession.aidl \
  	core/java/android/net/nsd/INsdManager.aidl \
  	core/java/android/nfc/IAppCallback.aidl \
@@ -15,22 +15,22 @@ index 0ba92cf..76ac784 100644
  	core/java/android/nfc/INfcTag.aidl \
  	core/java/android/nfc/INfcCardEmulation.aidl \
 +	core/java/com/nxp/intf/ILoaderService.aidl \
-+        core/java/com/nxp/intf/IJcopService.aidl \
-+        core/java/com/nxp/intf/INxpExtrasService.aidl \
++	core/java/com/nxp/intf/IJcopService.aidl \
++	core/java/com/nxp/intf/INxpExtrasService.aidl \
 +	core/java/com/nxp/intf/IeSEClientServicesAdapter.aidl \
++	core/java/android/nfc/INfcFCardEmulation.aidl \
 +	core/java/com/nxp/nfc/INfcDta.aidl \
 +	core/java/com/nxp/nfc/INxpNfcAccessExtras.aidl \
  	core/java/android/nfc/INfcUnlockHandler.aidl \
  	core/java/android/os/IBatteryPropertiesListener.aidl \
  	core/java/android/os/IBatteryPropertiesRegistrar.aidl \
-@@ -598,6 +608,10 @@ $(gen): $(aidl_files) | $(AIDL)
+@@ -634,6 +645,9 @@ $(gen): $(aidl_files) | $(AIDL)
  # TODO: deal with com/google/android/googleapps
  packages_to_document := \
  	android \
 +	com/nxp/nfc \
-+        com/nxp/intf \
-+        com/nxp/nfc/gsma/internal \
-+        com/nxp/eseclient \
- 	javax/microedition/khronos
- 
- # Search through the base framework dirs for these packages.
++	com/nxp/intf \
++	com/nxp/nfc/gsma/internal \
+ 	javax/microedition/khronos \
+ 	org/apache/http/conn \
+ 	org/apache/http/params
