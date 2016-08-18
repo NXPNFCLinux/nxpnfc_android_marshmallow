@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="github_nfc" fetch="https://github.com" />
+  
+  <remove-project name="platform/external/libnfc-nci" />
+  <project path="external/libnfc-nci" name="NXPNFCProject/NFC_NCIHAL_libnfc-nci" remote="github_nfc" revision="refs/tags/NFC_NCIHALx_AR3C.4.5.0_M_OpnSrc"/>
+
+  <remove-project name="platform/packages/apps/Nfc" />
+  <project path="packages/apps/Nfc" name="NXPNFCProject/NFC_NCIHAL_Nfc" remote="github_nfc" revision="refs/tags/NFC_NCIHALx_AR3C.4.5.0_M_OpnSrc"/>
+
+  <project path="NxpNfcAndroid/NXPNFC_Reference" name="NXPNFCProject/NXPNFC_Reference" remote="github_nfc" revision="refs/tags/NFC_NCIHALx_AR3C.4.5.0_M_OpnSrc">
+	<copyfile src="hardware/libhardware/include/hardware/nfc.h" dest="hardware/libhardware/include/hardware/nfc.h" />
+  </project>
+
+  <project path="NxpNfcAndroid/NFC_NCIHAL_base" name="NXPNFCProject/NFC_NCIHAL_base" remote="github_nfc" revision="refs/tags/NFC_NCIHALx_AR3C.4.5.0_M_OpnSrc"/>
+
+  <project path="NxpNfcAndroid/" name="NXPNFCLinux/nxpnfc_android_lollipop" remote="github_nfc" revision="master"/>
+
+</manifest>
