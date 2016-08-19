@@ -14,6 +14,6 @@
 
   <project path="NxpNfcAndroid/NFC_NCIHAL_base" name="NXPNFCProject/NFC_NCIHAL_base" remote="github_nfc" revision="refs/tags/NFC_NCIHALx_AR3C.4.5.0_M_OpnSrc"/>
 
-  <project path="NxpNfcAndroid/" name="NXPNFCLinux/nxpnfc_android_lollipop" remote="github_nfc" revision="master"/>
+  <project path="NxpNfcAndroid/" name="NXPNFCLinux/nxpnfc_android_marshmallow" remote="github_nfc" revision="master"/>
 
 </manifest>

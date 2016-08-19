@@ -17,7 +17,7 @@ echo "- removing existing implementation"
 rm -rf $ANDROID_BUILD_TOP/frameworks/base/core/java/android/nfc
 rm -rf $ANDROID_BUILD_TOP/frameworks/base/core/java/com/nxp
 rm -rf $ANDROID_BUILD_TOP/frameworks/base/core/java/com/vzw
-rm -rf $ANDROID_BUILD_TOP/nxp-nfc-gsma
+rm -rf $ANDROID_BUILD_TOP/frameworks/base/nxp-nfc-gsma
 
 echo
 echo "- copying required files"
