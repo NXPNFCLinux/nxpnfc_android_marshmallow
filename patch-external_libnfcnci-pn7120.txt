@@ -1,10 +1,10 @@
 diff --git a/Android.mk b/Android.mk
 old mode 100644
 new mode 100755
-index c9a295a..bb13689
+index c9a295a..f2e58ea
 --- a/Android.mk
 +++ b/Android.mk
-@@ -48,7 +48,7 @@ LOCAL_CFLAGS += -DJCOP_VER_3_1=$(JCOP_VER_3_1)
+@@ -48,16 +48,16 @@ LOCAL_CFLAGS += -DJCOP_VER_3_1=$(JCOP_VER_3_1)
  LOCAL_CFLAGS += -DJCOP_VER_3_2=$(JCOP_VER_3_2)
  LOCAL_CFLAGS += -DJCOP_VER_3_3=$(JCOP_VER_3_3)
  
@@ -13,13 +13,13 @@ index c9a295a..bb13689
  ifeq ($(NFC_NXP_ESE),TRUE)
  LOCAL_CFLAGS += -DNFC_NXP_ESE=TRUE
  LOCAL_CFLAGS += -DNFC_NXP_ESE_VER=$(JCOP_VER_3_3)
-@@ -56,8 +56,8 @@ else
- LOCAL_CFLAGS += -DNFC_NXP_ESE=TRUE
+ else
+-LOCAL_CFLAGS += -DNFC_NXP_ESE=TRUE
++LOCAL_CFLAGS += -DNFC_NXP_ESE=FALSE
  endif
  
--#### Select the CHIP ####
+ #### Select the CHIP ####
 -NXP_CHIP_TYPE := $(PN551)
-+#### Select the CHIP C####
 +NXP_CHIP_TYPE := $(PN547C2)
  
  ifeq ($(NXP_CHIP_TYPE),$(PN547C2))
