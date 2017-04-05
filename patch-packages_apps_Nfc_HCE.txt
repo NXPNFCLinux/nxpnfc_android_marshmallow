@@ -1,0 +1,58 @@
+diff --git a/nci/jni/RoutingManager.cpp b/nci/jni/RoutingManager.cpp
+old mode 100644
+new mode 100755
+index 88b600c..4a45ee2
+--- a/nci/jni/RoutingManager.cpp
++++ b/nci/jni/RoutingManager.cpp
+@@ -588,12 +588,22 @@ bool RoutingManager::setDefaultRoute(const UINT8 defaultRoute, const UINT8 proto
+     tNFA_HANDLE preferred_defaultHandle = 0x402;
+     UINT8 isDefaultProtoSeIDPresent = 0;
+ 
++	UINT8 ldefaultRoute = defaultRoute;
++	UINT8 lprotoRoute = protoRoute;
++	UINT8 ltechRoute = techRoute;
++	
++	if(defaultRoute == 0) {
++		ldefaultRoute = 0x1;
++		lprotoRoute = protoRoute | 0x3;
++		ltechRoute = techRoute | 0x23;	
++	}
++	
+     ALOGD ("%s: enter", fn);
+ 
+ #if((NXP_EXTNS == TRUE) && (NFC_NXP_STAT_DUAL_UICC_EXT_SWITCH == TRUE))
+     if(mSetDefaulRouteParams == 0)
+     {
+-        mSetDefaulRouteParams = ((defaultRoute<<16)|(protoRoute<<8)|(techRoute));
++        mSetDefaulRouteParams = ((ldefaultRoute<<16)|(lprotoRoute<<8)|(ltechRoute));
+     }
+ #endif
+ 
+@@ -609,19 +619,19 @@ bool RoutingManager::setDefaultRoute(const UINT8 defaultRoute, const UINT8 proto
+ 
+        uiccListenTech = NFA_TECHNOLOGY_MASK_A | NFA_TECHNOLOGY_MASK_B;
+ 
+-       ALOGD ("%s: enter, defaultRoute:%x protoRoute:0x%x TechRoute:0x%x HostListenMask:0x%x", fn, defaultRoute, protoRoute, techRoute, mHostListnTechMask);
++       ALOGD ("%s: enter, ldefaultRoute:%x lprotoRoute:0x%x lTechRoute:0x%x HostListenMask:0x%x", fn, ldefaultRoute, lprotoRoute, ltechRoute, mHostListnTechMask);
+ 
+-       defaultSeID = (((defaultRoute & 0x60) >> 5) == 0x00)  ? 0x400 :  ((((defaultRoute & 0x60)>>5 )== 0x01 ) ? 0x4C0 : 0x402);
+-       defaultPowerstate=defaultRoute & 0x1F;
++       defaultSeID = (((ldefaultRoute & 0x60) >> 5) == 0x00)  ? 0x400 :  ((((ldefaultRoute & 0x60)>>5 )== 0x01 ) ? 0x4C0 : 0x402);
++       defaultPowerstate=ldefaultRoute & 0x1F;
+        ALOGD ("%s: enter, defaultSeID:%x defaultPowerstate:0x%x", fn, defaultSeID,defaultPowerstate);
+ 
+-       defaultProtoSeID = (((protoRoute & 0x60) >> 5) == 0x00)  ? 0x400 :  ((((protoRoute & 0x60)>>5 )== 0x01 ) ? 0x4C0 : 0x402);
+-       defaultProtoPowerstate = protoRoute & 0x1F;
++       defaultProtoSeID = (((lprotoRoute & 0x60) >> 5) == 0x00)  ? 0x400 :  ((((lprotoRoute & 0x60)>>5 )== 0x01 ) ? 0x4C0 : 0x402);
++       defaultProtoPowerstate = lprotoRoute & 0x1F;
+        ALOGD ("%s: enter, defaultProtoSeID:%x defaultProtoPowerstate:0x%x", fn, defaultProtoSeID,defaultProtoPowerstate);
+ 
+-       defaultTechSeID = (((techRoute & 0x60) >> 5) == 0x00)  ? 0x400 :  ((((techRoute & 0x60)>>5 )== 0x01 ) ? 0x4C0 : 0x402);
+-       defaultTechAPowerstate = techRoute & 0x1F;
+-       DefaultTechType = (techRoute & 0x80) >> 7;
++       defaultTechSeID = (((ltechRoute & 0x60) >> 5) == 0x00)  ? 0x400 :  ((((ltechRoute & 0x60)>>5 )== 0x01 ) ? 0x4C0 : 0x402);
++       defaultTechAPowerstate = ltechRoute & 0x1F;
++       DefaultTechType = (ltechRoute & 0x80) >> 7;
+        ALOGD ("%s: enter, defaultTechSeID:%x defaultTechAPowerstate:0x%x,defaultTechType:0x%x", fn, defaultTechSeID,defaultTechAPowerstate,DefaultTechType);
+ 
+        cleanRouting();

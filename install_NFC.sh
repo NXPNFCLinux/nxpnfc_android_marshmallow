@@ -36,6 +36,8 @@ patch -p1 <$ANDROID_BUILD_TOP/NxpNfcAndroid/patch-framework_base_felica.txt
 rm core/res/res/values/attrs.xml.orig
 cd $ANDROID_BUILD_TOP/build
 patch -p1 <$ANDROID_BUILD_TOP/NxpNfcAndroid/patch-package_whitelist.txt
+cd $ANDROID_BUILD_TOP/packages/apps/Nfc
+patch -p1 <$ANDROID_BUILD_TOP/NxpNfcAndroid/patch-packages_apps_Nfc_HCE.txt
 cd $ANDROID_BUILD_TOP
 
 if [ "$1" = "PN7120" ]; then
