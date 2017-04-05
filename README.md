@@ -10,4 +10,5 @@ Further details about the stack and integration guidelines [here](https://github
 
 Release version
 ---------------
+ * R1.1: Updated with HCE fix
  * R1.0: Initial release based on NFC_NCIHALx_AR3C.4.5.0_M_OpnSrc
