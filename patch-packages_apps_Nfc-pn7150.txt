@@ -22,3 +22,89 @@ index 2a7d34a..b7a4235
  
  ifeq ($(NXP_CHIP_TYPE),$(PN547C2))
  LOCAL_CFLAGS += -DNFC_NXP_CHIP_TYPE=PN547C2
+diff --git a/nci/jni/NativeNfcManager.cpp b/nci/jni/NativeNfcManager.cpp
+old mode 100644
+new mode 100755
+index dbbd7c5..373b50d
+--- a/nci/jni/NativeNfcManager.cpp
++++ b/nci/jni/NativeNfcManager.cpp
+@@ -5504,48 +5504,19 @@ void checkforTranscation(UINT8 connEvent, void* eventData)
+ #endif
+     case NFA_TRANS_DM_RF_FIELD_EVT:
+         if (eventDM_Conn_data->rf_field.status == NFA_STATUS_OK &&
+-                (transaction_data.current_transcation_state == NFA_TRANS_EE_ACTION_EVT
+-                        || transaction_data.current_transcation_state == NFA_TRANS_CE_DEACTIVATED)
+-                && eventDM_Conn_data->rf_field.rf_field_status == 0)
+-        {
+-            ALOGD("start_timer");
+-#if((NFC_NXP_CHIP_TYPE == PN548C2) || (NFC_NXP_CHIP_TYPE == PN551))
+-            set_AGC_process_state(false);
+-#endif
+-            transaction_data.current_transcation_state = NFA_TRANS_DM_RF_FIELD_EVT_OFF;
+-            scleanupTimerProc_transaction.set (50, cleanupTimerProc_transaction);
+-        }
+-        else if (eventDM_Conn_data->rf_field.status == NFA_STATUS_OK &&
+-                transaction_data.current_transcation_state == NFA_TRANS_DM_RF_FIELD_EVT_OFF &&
+-                eventDM_Conn_data->rf_field.rf_field_status == 1)
++            eventDM_Conn_data->rf_field.rf_field_status == 1)
+         {
+ #if((NFC_NXP_CHIP_TYPE == PN548C2) || (NFC_NXP_CHIP_TYPE == PN551))
+             nfcManagerEnableAGCDebug(connEvent);
+ #endif
+-            transaction_data.current_transcation_state = NFA_TRANS_DM_RF_FIELD_EVT_ON;
+-            ALOGD("Payment is in progress hold the screen on/off request ");
+-            transaction_data.current_transcation_state = NFA_TRANS_DM_RF_TRANS_START;
+-            scleanupTimerProc_transaction.kill ();
+-
+         }
+         else if (eventDM_Conn_data->rf_field.status == NFA_STATUS_OK &&
+-                transaction_data.current_transcation_state == NFA_TRANS_DM_RF_TRANS_START &&
+-                eventDM_Conn_data->rf_field.rf_field_status == 0)
++                 eventDM_Conn_data->rf_field.rf_field_status == 0)
+         {
+             ALOGD("Transcation is done");
+ #if((NFC_NXP_CHIP_TYPE == PN548C2) || (NFC_NXP_CHIP_TYPE == PN551))
+             set_AGC_process_state(false);
+ #endif
+-            transaction_data.current_transcation_state = NFA_TRANS_DM_RF_TRANS_PROGRESS;
+-            //set_transcation_stat(false);
+-            cleanup_timer();
+-        }else if(eventDM_Conn_data->rf_field.status == NFA_STATUS_OK &&
+-                transaction_data.current_transcation_state == NFA_TRANS_ACTIVATED_EVT &&
+-                eventDM_Conn_data->rf_field.rf_field_status == 0)
+-        {
+-
+-            ALOGD("No transaction done cleaning up the variables");
+-            cleanup_timer();
+         }
+         break;
+     default:
+@@ -6668,8 +6639,9 @@ static void nfcManagerEnableAGCDebug(UINT8 connEvent)
+         ALOGD ("%s AGCDebug not enabled", __FUNCTION__);
+         return;
+     }
++	ALOGD ("%s connEvent=%d, menableAGC_debug_t.AGCdebugrunning=%d", __FUNCTION__, connEvent, menableAGC_debug_t.AGCdebugrunning);
+     if(connEvent == NFA_TRANS_DM_RF_FIELD_EVT &&
+-       menableAGC_debug_t.AGCdebugstarted == false)
++       menableAGC_debug_t.AGCdebugrunning == false)
+     {
+         pthread_t agcThread;
+         pthread_attr_t attr;
+@@ -6679,7 +6651,7 @@ static void nfcManagerEnableAGCDebug(UINT8 connEvent)
+         pthread_attr_destroy(&attr);
+         if(retvalue == 0)
+         {
+-            menableAGC_debug_t.AGCdebugstarted = true;
++            menableAGC_debug_t.AGCdebugrunning = true;
+             set_AGC_process_state(true);
+         }
+     }
+@@ -6688,7 +6660,7 @@ static void nfcManagerEnableAGCDebug(UINT8 connEvent)
+ void *enableAGCThread(void *arg)
+ {
+     tNFA_STATUS status = NFA_STATUS_FAILED;
+-    while( menableAGC_debug_t.AGCdebugstarted == true )
++    while( menableAGC_debug_t.AGCdebugrunning == true )
+     {
+         if(get_AGC_process_state() == false)
+         {
