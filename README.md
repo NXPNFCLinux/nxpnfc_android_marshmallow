@@ -6,7 +6,7 @@ It only applies to android version later than Marshmallow (for Lollipop and Kitk
 
 Information about NXP NFC Controller can be found on [NXP website](https://www.nxp.com/products/identification-and-security/nfc/nfc-reader-ics:NFC-READER).
 
-Further details about the stack and integration guidelines [here](https://github.com/NXPNFCLinux/nxpnfc_android_marshmallow/blob/master/AN11690%20-%20NXPNCI%20Android%20Porting%20Guidelines.pdf).
+Further details about the stack and integration guidelines [here](https://www.nxp.com/docs/en/application-note/AN11690.pdf).
 
 Release version
 ---------------
